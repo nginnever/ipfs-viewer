@@ -5,8 +5,8 @@
 
 .window_wrapper
 {
-	width: 800px;
-	height: 420px;
+	width: 500px;
+	height: 300px;
 	background-color: rgba(255,255,255,0.92);
 	border: 2px solid #457BF7;
 	border-radius: 5px;
@@ -18,26 +18,3 @@
 	margin: auto;
 	overflow: hidden;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

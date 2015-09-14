@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<ul>
+<?
+
+#!/usr/bin/env python3
+
+import os
+import subprocess
+
+refsdir = "./localrefs"
+
+extensions = {  "ASCII text":"txt", 
+                "C source":"c",
+                "C++ source":"cpp",
+                "HTML document":"html",
+                "JPEG image data":"jpg",
+                "PDF document":"pdf",
+                "PNG image data":"png",
+                "SVG Scalable Vector Graphics image":"svg",
+                "UTF-8 Unicode text":"txt",
+                "WebM":"webm"}
+
+localrefs = subprocess.check_output(["ipfs", "refs", "local"]).decode("utf-8").split()
+
+write("<h1>"+str(len(localrefs))+" local refs found</h1>")
+
+    
+ctr = 0
+for ref in localrefs:
+    ctr += 1
+    print("Fetching ",ctr,"of",len(localrefs),"(",ref,")...")
+    try:
+        content = subprocess.check_output(["ipfs", "cat", ref])
+        
+        with open("./thisfile", "wb") as f:
+            f.write(content)
+            
+        filetype = subprocess.check_output(["file", "-b", "./thisfile"]).decode("utf-8").split("/")[0].split(",")[0].strip()
+        print("\tFiletype is: ", filetype)
+
+	if filetype == "JPEG image data":
+		write("jpegs </br>")
+        	write("<li/>Filetype: "+filetype+" : <a href=\"http://voxelot.us/ipfs/"+ref+"\">"+ref+"</a></li>")
+	
+        if len(filetype)<1:
+            filetype = "Unknown"
+        
+        
+    except:
+        pass
+
+?>
+
+</ul>
+
+</body>
+</html>
